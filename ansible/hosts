@@ -1,0 +1,23 @@
+[Couchdb]
+172.26.134.181
+172.26.131.153
+172.26.132.249
+
+[MasterNodes]
+172.26.134.181
+
+[ProcessingNodes]
+172.26.130.150
+
+[Couchdb:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/team30.pem
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[ProcessingNodes:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/team30.pem
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+

@@ -8,7 +8,7 @@
 - name: Install dependencies
   become: yes
   ansible.builtin.apt:
-    name: ['apt-transport-https', 'ca-certificates', 'curl', 'python-setuptools', 'software-properties-common', 'gnupg', 'lsb-release']
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'python-setuptools', 'software-properties-common']
     state: latest
     install_recommends: no
     update_cache: yes
@@ -40,3 +40,51 @@
   ansible.builtin.pip:
     name: ['docker-compose']
     state: latest
+
+# Make sure systemd directory exists
+- name: Make sure that systemd directory exists
+  file:
+    path: '/etc/systemd/system'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
+# Make sure docker.service.d directory exists
+- name: Make sure that docker.service.d directory exists
+  file:
+    path: '/etc/systemd/system/docker.service.d'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  become: yes
+
+# configure docker proxy
+- name: Configure Docker proxy
+  template:
+    src: 'l_http-proxy.conf'
+    dest: '/etc/systemd/system/docker.service.d/http-proxy.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  when: (ansible_service_mgr == 'systemd' and
+        (proxy_env.http_proxy is defined or proxy_env.https_proxy is defined))
+  become: yes
+
+# Restart systemd daemons
+- name: Reload systemd daemons
+  command: systemctl daemon-reload
+  become: yes
+
+# Restart Docker daemon
+- name: Restart docker daemon
+  command: systemctl restart docker
+  become: yes
+
+# Restart Docker 
+- name: Restart docker
+  service:
+    name: docker
+    state: restarted
+  become: yes

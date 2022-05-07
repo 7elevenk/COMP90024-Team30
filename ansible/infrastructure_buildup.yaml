@@ -1,0 +1,46 @@
+- hosts: Couchdb
+  vars_files:
+    - host_vars/couchdb.yaml
+  gather_facts: true
+
+  roles:
+    - role: node_setup
+    - role: docker
+    - role: volume_mount
+    - role: couchdb
+
+# check master node is correct
+- hosts: Couchdb
+  
+
+ # run CouchDB configuration on all hosts except Masternode
+- hosts: Couchdb:!masternode
+  vars_files:
+    - host_vars/couchdb_settings.yaml
+  gather_facts: true
+
+  roles:
+    - role: couch-setup
+
+# Install Twitter Harvester on all hosts
+# - hosts: DataNodes
+#   vars_files:
+#     - host_vars/environment_variables.yaml
+#   gather_facts: true
+
+#   roles:
+#      - role: twitter-harvester-setup
+
+
+
+
+# install react frontend and data processor 
+# - hosts: ProcessingNodes
+#   vars_files:
+#     - host_vars/environment_variables.yaml
+#   gather_facts: true
+
+#   roles:
+#     - role: nodes_setup
+#     - role: docker
+#     - role: volume_mount
