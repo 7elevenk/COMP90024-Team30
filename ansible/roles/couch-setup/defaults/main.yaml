@@ -1,2 +1,2 @@
 # Use first node in hosts list as masternode for CouchDB
-masternode: "{{ MasterNodes[0] }}"
+masternode: "{{ groups_vars['Couchdb'][0] }}"

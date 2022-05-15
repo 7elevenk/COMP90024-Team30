@@ -1,25 +1,25 @@
 ---
-- name: Uninstall old versions of docker
+- name: Uninstall old versions of docker if any
   become: yes
-  ansible.builtin.apt:
-    name: ['docker', 'docker-engine', 'docker.io']
+  apt:
+    name: ['docker', 'docker.io','docker-engine']
     state: absent
 
 - name: Install dependencies
   become: yes
-  ansible.builtin.apt:
+  apt:
     name: ['apt-transport-https', 'ca-certificates', 'curl', 'python-setuptools', 'software-properties-common']
     state: latest
     install_recommends: no
     update_cache: yes
 
-- name: Add Docker apt repository key
+- name: Add Docker apt repository 
   become: yes
   ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Add Docker apt repository and update apt cache
+- name:  update apt cache
   become: yes
   ansible.builtin.apt_repository:
     repo: "deb https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
@@ -29,7 +29,7 @@
 
 - name: Install docker
   become: yes
-  ansible.builtin.apt:
+  apt:
     name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
     state: latest
     install_recommends: no
@@ -37,11 +37,11 @@
 
 - name: Install docker-compose
   become: yes
-  ansible.builtin.pip:
+  pip:
     name: ['docker-compose']
     state: latest
 
-# Make sure systemd directory exists
+# Make sure systemd directory exists if not create
 - name: Make sure that systemd directory exists
   file:
     path: '/etc/systemd/system'
@@ -50,7 +50,7 @@
     group: 'root'
     mode: '0755'
 
-# Make sure docker.service.d directory exists
+# Make sure docker.service.d directory exists if not create one
 - name: Make sure that docker.service.d directory exists
   file:
     path: '/etc/systemd/system/docker.service.d'
@@ -60,7 +60,7 @@
     mode: '0755'
   become: yes
 
-# configure docker proxy
+# configure docker proxy for unimelb
 - name: Configure Docker proxy
   template:
     src: 'l_http-proxy.conf'
@@ -68,21 +68,21 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  when: (ansible_service_mgr == 'systemd' and
-        (proxy_env.http_proxy is defined or proxy_env.https_proxy is defined))
+  when: ((proxy_env.http_proxy is defined or proxy_env.https_proxy is defined) and ansible_service_mgr == 'systemd')
   become: yes
 
-# Restart systemd daemons
-- name: Reload systemd daemons
-  command: systemctl daemon-reload
-  become: yes
 
 # Restart Docker daemon
-- name: Restart docker daemon
+- name: Restart daemon for docker
   command: systemctl restart docker
   become: yes
 
-# Restart Docker 
+# Restart systemd daemons
+- name: Reload daemons for systemd
+  command: systemctl daemon-reload
+  become: yes
+
+# Restart Docker for finalised.
 - name: Restart docker
   service:
     name: docker

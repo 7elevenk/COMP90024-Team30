@@ -1,0 +1,12 @@
+---
+docker_proxy_settings: "{\"proxies\":{\"default\":{\"httpProxy\":\"http://wwwproxy.unimelb.edu.au:8000\",\"httpsProxy\":\"http://wwwproxy.unimelb.edu.au:8000\",\"noProxy\":\"localhost,127.0.0.1,localaddress,172.16.0.0/12,.melbounre.rc.nectar.org.au,.storage.unimelb.edu.au,.cloud.unimelb.edu.au\"}}}"
+
+# INTERNAL port for react app
+REACT_PORT: "4000"
+
+# port for BACKEND if necessary
+PORT_FOR_APPSERVER: "5000"
+
+#connection to database
+COUCHDB_INSTANCE: "https://admin:admin@172.26.131.153:5984"
+

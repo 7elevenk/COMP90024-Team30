@@ -1,40 +1,75 @@
-- name: Clone the code repository into home directory
-  git:
-    repo: "https://github.com/7elevenk/COMP90024-Team30.git"
-    dest: ~/ccc_A2
-  environment: "{{ proxy_env }}"
-  become: true
+# # make sure ccc_A2 directory exists
+# - name: ensure the ccc_A2 folder exist
+#   become: yes
+#   file:
+#     path: '/home/ubuntu/ccc_A2'
+#     state: 'directory'
+
+# - name: copy the codes and required docker file into folder 
+#   copy:
+#     src: ~/Downloads/{{ item }}
+#     dest: /home/ubuntu/ccc_A2
+#     owner: root
+#     group: root
+#     mode: 0644
+#     remote_src: false
+#   with_items:
+#     - "bne_harv.py"
+#     - "melb_harv.py"
+#     - "run_harv.sh"
+#     - "sydn_harv.py"
+#     - "Dockerfile"
+#     - "requirements.txt"
+#   become: yes
+
+  
 
 # Create Docker config directory
-- name: Make sure that Docker config directory exists
+- name: create Docker config directory 
   become: yes
   file:
     path: '~/.docker'
     state: 'directory'
 
-# Set Docker proxy for University of Melbourne Research Cloud
-- name: Ensure Docker client proxy settings are present on the server
+# Set Docker proxy for server
+- name: set Docker client proxy settings on MRC server
   become: yes
   copy:
-    content: "{{ docker_proxy_settings }}"
+    content: "{{ docker_proxy_setting }}"
     dest: ~/.docker/config.json
 
 # Build Docker image for tweet harvester
-- name: Build an image and push it to local repo
+- name: Build tweet Harvester docker image
   docker_image:
     build:
-      path: '~/COMP90024-Team30/'
+      path: '/home/ubuntu/ccc_A2/'
       pull: yes
-    name: cloud-assignment-2/tweet-harvester
+    name: ccc_a2/tweet_harvester
     tag: latest
     source: build
-    force: yes
+    force_tag: yes 
   become: yes
   environment: "{{ proxy_env }}"
 
-# Stop existing Docker containers for Twitter Harvesters and remove them (if any)
-- name: Stop Twitter Harvester Docker container
+# Stop existing Docker containers for Twitter Harvesters and remove them (if any existing)
+- name: Stop Tweet Harvester Docker container
   become: yes
   docker_container:
-    name: twitter-harvester
+    name: tweet_harvester
     state: absent
+
+# Create new docker container for twitter harvester and start the container
+- name: Create Tweet Harvester Docker container
+  become: yes
+  docker_container:
+    name: tweet_harvester
+    image: ccc_a2/tweet_harvester
+    state: started
+    pull: false
+    recreate: true
+
+# # run the script for harvester
+# - name: run the python script for harvester
+#   command: ". ./run_harv.sh"
+#   become: true
+#   run_once: true

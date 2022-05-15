@@ -1,4 +1,4 @@
-# Stop existing Couch DB Docker containers and remove them (if any)
+# Stop existing Couch DB Docker containers if any exist
 - name: Stop CouchDB Docker container
   become: yes
   docker_container:
@@ -11,8 +11,6 @@
   docker_container:
     name: couchdb
     image: "ibmcom/couchdb3:{{ VERSION }}"
-    state: started
-    recreate: true
     ports:
       - "5984:5984"
       - "4369:4369"
@@ -20,6 +18,8 @@
     volumes:
       - /data
     pull: yes
+    state: started
+    recreate: true
     env:
       COUCHDB_USER: "{{ user }}"
       COUCHDB_PASSWORD: "{{ pass }}"

@@ -1,0 +1,11 @@
+
+- name: install required frontend dependencies 
+  tags: always
+  become: yes
+  apt:
+    name: ["wget", "nginx", "nodejs"]
+    state: latest
+    install_recommends: no
+    update_cache: yes
+  environment: "{{ proxy_env }}"
+
