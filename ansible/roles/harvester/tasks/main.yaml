@@ -22,12 +22,12 @@
 #     - "requirements.txt"
 #   become: yes
 
-copy the codes and required docker file into folder (for marker to check ) from git
+# copy the codes and required docker file into folder (for marker to check ) from git
 - name: copy the codes and required docker file into folder (for marker to check ) from git
   git:
     repo: "https://github.com/7elevenk/COMP90024-Team30.git"
     dest: /home/ubuntu/cloud-cluster-computing
-  environment: "{{ proxy env }}"
+  environment: "{{ proxy_var }}"
   become: true
 
 
