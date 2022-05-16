@@ -270,27 +270,27 @@ reduceFunction = '''function(keys, values, rereduce) {
 
 if db.__contains__('_design/walking_cyclying_analysis'):
     db.__delitem__('_design/walking_cyclying_analysis')
-    createView( db, "walking_cyclying_analysis", "walking_cyclying", map_walking_cyclying, reduceFunction )
+createView( db, "walking_cyclying_analysis", "walking_cyclying", map_walking_cyclying, reduceFunction )
 
 if db.__contains__('_design/traffic_analysis'):
     db.__delitem__('_design/traffic_analysis')
-    createView( db, "traffic_analysis", "traffic", map_traffic, reduceFunction )
+createView( db, "traffic_analysis", "traffic", map_traffic, reduceFunction )
 
 if db.__contains__('_design/publictransport_analysis'):
     db.__delitem__('_design/publictransport_analysis')
-    createView( db, "publictransport_analysis", "publictransport", map_publictransport, reduceFunction )
+createView( db, "publictransport_analysis", "publictransport", map_publictransport, reduceFunction )
 
 if db.__contains__('_design/driverlessvehicles_analysis'):
     db.__delitem__('_design/driverlessvehicles_analysis')
-    createView( db, "driverlessvehicles_analysis", "driverlessvehicles", map_driverlessvehicles, reduceFunction )
+createView( db, "driverlessvehicles_analysis", "driverlessvehicles", map_driverlessvehicles, reduceFunction )
 
 if db.__contains__('_design/airport_analysis'):
     db.__delitem__('_design/airport_analysis')
-    createView( db, "airport_analysis", "airport", map_airport, reduceFunction )
+createView( db, "airport_analysis", "airport", map_airport, reduceFunction )
 
 if db.__contains__('_design/railways_analysis'):
     db.__delitem__('_design/railways_analysis')
-    createView( db, "railways_analysis", "railways", map_railways, reduceFunction )
+createView( db, "railways_analysis", "railways", map_railways, reduceFunction )
 
 
 
