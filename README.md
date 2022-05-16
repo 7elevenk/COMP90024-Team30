@@ -30,6 +30,10 @@ roles/
     harvester  
         tasks/
             main.yaml   # tasks for setup and running harvester
+            
+    historical-tweet-crawler
+        tasks/
+            main.yaml   # tasks for setup and running historical tweet crawler
     
     frontend
         tasks/
