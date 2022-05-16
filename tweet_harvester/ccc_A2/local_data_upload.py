@@ -11,7 +11,7 @@ db_name = "mel_tweets"
 if db_name in couch:
     db = couch[db_name]
 else:
-    db = db.create(db_name)
+    db = couch.create(db_name)
 
 count = 0
 
