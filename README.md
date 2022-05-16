@@ -2,10 +2,10 @@
 uses to store the repo of our A2 project
 
 ## Team Member
-Denny Pan - ziyang.pan@student.unimelb.edu.au;
-Humna Hussain - hussain1@student.unimelb.edu.au;
-Jonny Jiang - jonny.jiang@student.unimelb.edu.au;
-Xiongfei Guo  - xiongfeig@student.unimelb.edu.au;
+Denny Pan - ziyang.pan@student.unimelb.edu.au;<br>
+Humna Hussain - hussain1@student.unimelb.edu.au;<br>
+Jonny Jiang - jonny.jiang@student.unimelb.edu.au;<br>
+Xiongfei Guo  - xiongfeig@student.unimelb.edu.au;<br>
 Zoe Wu -   zoe.wu@student.unimelb.edu.au;
 
 
