@@ -7,7 +7,7 @@ volumes:
 
 wp_dir: couchdb
 
-proxy_env:
+proxy_var:
   HTTP_PROXY: http://wwwproxy.unimelb.edu.au:8000/
   HTTPS_PROXY: http://wwwproxy.unimelb.edu.au:8000/
   http_proxy: http://wwwproxy.unimelb.edu.au:8000/
@@ -21,3 +21,9 @@ user: admin
 pass: "admin"
 VERSION: '3.2.1'
 cookie: 'a192aeb9904e6590849337933b000c99'
+
+# instance vars
+ansible_python_interpreter: /usr/bin/python3
+ansible_user: ubuntu
+ansible_ssh_private_key_file: ~/.ssh/team30.pem
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

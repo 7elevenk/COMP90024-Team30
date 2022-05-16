@@ -13,7 +13,7 @@
     update_cache: yes
     install_recommends: no
 
-  environment: "{{ proxy_env }}"
+  environment: "{{ proxy_var }}"
 
 
 # Update Python pip
@@ -23,5 +23,5 @@
   pip:
     name: ['pip']
     state: latest
-  environment: "{{ proxy_env }}"
+  environment: "{{ proxy_var }}"
 

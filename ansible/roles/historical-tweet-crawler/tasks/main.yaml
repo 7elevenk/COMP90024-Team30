@@ -1,0 +1,61 @@
+# make sure cloud-cluster-computing directory exists
+- name: ensure the cloud-cluster-computing folder exist
+  become: yes
+  file:
+    path: '/home/ubuntu/cloud-cluster-computing'
+    state: 'directory'
+
+
+# # clone the repo into the instances
+# - name: clone the repo into the instance (this step is unnecessary if run the harvester first)
+#   git:
+#     repo: "https://github.com/7elevenk/COMP90024-Team30.git"
+#     dest: /home/ubuntu/cloud-cluster-computing
+#   environment: "{{ proxy_var }}"
+#   become: yes
+
+# Create Docker config directory
+- name: create Docker config directory 
+  become: yes
+  file:
+    path: '~/.docker'
+    state: 'directory'
+
+# Set Docker proxy for server
+- name: set Docker client proxy settings on MRC server
+  become: yes
+  copy:
+    content: "{{ docker_proxy_setting }}"
+    dest: ~/.docker/config.json
+
+
+- name: Build historical tweet Harvester docker image
+  docker_image:
+    build:
+      path: '/home/ubuntu/cloud-cluster-computing/historical-twitter-crawler/'
+      pull: yes
+    name: htc/old_tweet_crawler
+    tag: latest
+    source: build
+    force_tag: yes
+    force_source: yes
+  become: yes
+  environment: "{{ proxy_var }}"
+
+
+# Stop existing Docker containers for old-Twitter crawler and remove them (if any existing)
+- name: Stop historical Tweet crawler Docker container
+  become: yes
+  docker_container:
+    name: old_tweet_crawler
+    state: absent
+
+# Create new docker container for twitter harvester and start the container
+- name: Create historical Tweet crawler Docker container
+  become: yes
+  docker_container:
+    name: old_tweet_crawler
+    image: htc/old_tweet_crawler
+    state: started
+    pull: false
+    recreate: true

@@ -1,28 +1,35 @@
-# # make sure ccc_A2 directory exists
-# - name: ensure the ccc_A2 folder exist
-#   become: yes
-#   file:
-#     path: '/home/ubuntu/ccc_A2'
-#     state: 'directory'
+# make sure ccc_A2 directory exists
+- name: ensure the ccc_A2 folder exist
+  become: yes
+  file:
+    path: '/home/ubuntu/ccc_A2'
+    state: 'directory'
 
 # - name: copy the codes and required docker file into folder 
 #   copy:
-#     src: ~/Downloads/{{ item }}
+#     src: ~/Downloads/tweet_harvester/ccc_A2/{{ item }}
 #     dest: /home/ubuntu/ccc_A2
 #     owner: root
 #     group: root
 #     mode: 0644
 #     remote_src: false
 #   with_items:
-#     - "bne_harv.py"
-#     - "melb_harv.py"
-#     - "run_harv.sh"
-#     - "sydn_harv.py"
+#     # - "bne_harv.py"
+#     # - "melb_harv.py"
+#     # - "run_harv.sh"
+#     # - "sydn_harv.py"
 #     - "Dockerfile"
 #     - "requirements.txt"
 #   become: yes
 
-  
+copy the codes and required docker file into folder (for marker to check ) from git
+- name: copy the codes and required docker file into folder (for marker to check ) from git
+  git:
+    repo: "https://github.com/7elevenk/COMP90024-Team30.git"
+    dest: /home/ubuntu/cloud-cluster-computing
+  environment: "{{ proxy env }}"
+  become: true
+
 
 # Create Docker config directory
 - name: create Docker config directory 
@@ -38,18 +45,33 @@
     content: "{{ docker_proxy_setting }}"
     dest: ~/.docker/config.json
 
-# Build Docker image for tweet harvester
+# # Build Docker image for tweet harvester
+# - name: Build tweet Harvester docker image
+#   become: yes
+#   docker_image:
+#     build:
+#       path: '/home/ubuntu/ccc_A2/'
+#       pull: yes
+#     name: ccc_a2/tweet_harvester
+#     tag: latest
+#     source: build
+#     force_tag: yes 
+#     force_source: yes
+#   environment: "{{ proxy_var }}"
+
+  # Build Docker image for tweet harvester (for maker to check)
 - name: Build tweet Harvester docker image
   docker_image:
     build:
-      path: '/home/ubuntu/ccc_A2/'
+      path: '/home/ubuntu/cloud-cluster-computing/tweet_harvester/ccc_A2/'
       pull: yes
     name: ccc_a2/tweet_harvester
     tag: latest
     source: build
     force_tag: yes 
+    force_source: yes
   become: yes
-  environment: "{{ proxy_env }}"
+  environment: "{{ proxy_var }}"
 
 # Stop existing Docker containers for Twitter Harvesters and remove them (if any existing)
 - name: Stop Tweet Harvester Docker container
@@ -60,13 +82,13 @@
 
 # Create new docker container for twitter harvester and start the container
 - name: Create Tweet Harvester Docker container
-  become: yes
   docker_container:
     name: tweet_harvester
     image: ccc_a2/tweet_harvester
     state: started
     pull: false
     recreate: true
+  become: yes
 
 # # run the script for harvester
 # - name: run the python script for harvester

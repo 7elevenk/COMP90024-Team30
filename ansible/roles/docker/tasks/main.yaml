@@ -68,7 +68,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  when: ((proxy_env.http_proxy is defined or proxy_env.https_proxy is defined) and ansible_service_mgr == 'systemd')
+  when: ((proxy_var.http_proxy is defined or proxy_var.https_proxy is defined) and ansible_service_mgr == 'systemd')
   become: yes
 
 
