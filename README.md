@@ -8,7 +8,7 @@ Jonny Jiang - jonny.jiang@student.unimelb.edu.au;<br>
 Xiongfei Guo  - xiongfeig@student.unimelb.edu.au;<br>
 Zoe Wu -   zoe.wu@student.unimelb.edu.au;
 
-## Web App ip address
+## Web App IP address
 http://172.26.130.150:443/
 
 ## Video Demonstration about Web App
