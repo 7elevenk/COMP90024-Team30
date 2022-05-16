@@ -2,7 +2,11 @@ import couchdb
 import json
 
 couch = couchdb.Server("http://admin:admin@172.26.131.153:5984")
-db = couch["historical_testset"]
+db_name = "historical_tweets"
+if db_name in couch:
+    db = couch[db_name]
+else:
+    db = couch.create(db_name)
 
 with open("twitter-melb.json") as jsonfile:
     for row in jsonfile:
