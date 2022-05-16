@@ -7,4 +7,7 @@ people talked about railways: curl http://admin:admin@172.26.131.153:5984/histor
 people talked about driverless cars: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/driverless_analysis/_view/driverless?group=true
 
 Comparing between cities:
-...
+social connectedness of Melbourne: curl http://admin:admin@172.26.131.153:5984/mel_tweets/_design/social_connectedness_analysis/_view/social_connectedness?group=true
+social connectedness of Sydney: curl http://admin:admin@172.26.131.153:5984/syd_tweets/_design/social_connectedness_analysis/_view/social_connectedness?group=true
+social connectedness of Brisbane: curl http://admin:admin@172.26.131.153:5984/bne_tweets/_design/social_connectedness_analysis/_view/social_connectedness?group=true
+
