@@ -1,10 +1,11 @@
-FROM python:3
+FROM ubuntu:latest
 
 ADD . /
 
-RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    python3-pip
 
-FROM ubuntu
+RUN pip install -r requirements.txt
 
 COPY ["./run_harv.sh", "/"]
 
