@@ -1,0 +1,10 @@
+Comparing inside Melbourne city:
+people talked about walking and cyclying: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/walking_cyclying_analysis/_view/walking_cyclying?group=true
+people talked about traffic: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/traffic_analysis/_view/traffic?group=true
+people talked about public transport: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/publictransport_analysis/_view/publictransport?group=true
+people talked about airports: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/airport_analysis/_view/airport?group=true
+people talked about railways: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/railways/_view/railways?group=true
+people talked about driverless cars: curl http://admin:admin@172.26.131.153:5984/historical_tweets/_design/driverless_analysis/_view/driverless?group=true
+
+Comparing between cities:
+...
