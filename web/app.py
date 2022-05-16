@@ -1,7 +1,4 @@
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from couchdb import Server
-import flaskext.couchdb
 
 app = Flask(__name__)
 
@@ -25,9 +22,5 @@ def streets():  # put application's code here
 if __name__ == '__main__':
     app.config.update(
         DEBUG=True,
-        COUCHDB_SERVER='http://172.26.131.153/:5984/',
-        COUCHDB_DATABASE='historical_tweets'
     )
-    manager = flaskext.couchdb.CouchDBManager()
-    manager.setup(app)
     app.run()
