@@ -18,4 +18,4 @@ FROM python:3
 
 RUN chmod +x /historical_create_view.py
 
-CMD["python", "./historical_create_view.py"]
+CMD ["python", "./historical_create_view.py"]
