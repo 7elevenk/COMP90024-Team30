@@ -14,6 +14,9 @@ http://172.26.130.150:443/
 ## Video Demonstration about Web App
 https://www.youtube.com/watch?v=70ItWgG2e5k
 
+## Video Demonstration about the Ansible deployment
+https://www.youtube.com/watch?v=CEqLXVqJRcE
+
 
 ## Ansible structure for our couchdb and harvesters setup
 ```
