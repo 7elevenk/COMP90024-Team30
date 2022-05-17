@@ -12,6 +12,7 @@
     body_format: json
     body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ user }}\", \"password\": \"{{ pass }}\", \"port\": \"5984\", \"remote_node\": \"{{ inventory_hostname }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ user }}\", \"remote_current_password\":\"{{ pass }}\"}"
 
+
 # Join cluster nodes together
 - name: Join nodes to CouchDB cluster
   uri:
@@ -38,6 +39,7 @@
 
 # Finish cluster setup
 - name: Finish cluster setup
+  ignore_errors: yes
   uri:
     url: http://{{ masternode }}:5984/_cluster_setup
     method: POST
