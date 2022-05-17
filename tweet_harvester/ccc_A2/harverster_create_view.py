@@ -30,14 +30,14 @@ map_mel = '''function (doc) {
 
 map_syd = '''function (doc) {
     if (doc.tweet.full_text.includes("network") || doc.tweet.full_text.includes("Network") || doc.tweet.full_text.includes("connectivity") || doc.tweet.full_text.includes("Connectivity") || doc.tweet.full_text.includes("affordablehousing") || doc.tweet.full_text.includes("affordable housing") || doc.tweet.full_text.includes("commuting") || doc.tweet.full_text.includes("Commuting") || doc.tweet.full_text.includes("connectedness") || doc.tweet.full_text.includes("neighbor") || doc.tweet.full_text.includes("social involvement") || doc.tweet.full_text.includes("socialinvolvement")) {
-      emit("social connectedness Melbourne", {text:doc.tweet.full_text});
+      emit("social connectedness Sydney", {text:doc.tweet.full_text});
   }
 }
 '''
 
 map_bne = '''function (doc) {
     if (doc.tweet.full_text.includes("network") || doc.tweet.full_text.includes("Network") || doc.tweet.full_text.includes("connectivity") || doc.tweet.full_text.includes("Connectivity") || doc.tweet.full_text.includes("affordablehousing") || doc.tweet.full_text.includes("affordable housing") || doc.tweet.full_text.includes("commuting") || doc.tweet.full_text.includes("Commuting") || doc.tweet.full_text.includes("connectedness") || doc.tweet.full_text.includes("neighbor") || doc.tweet.full_text.includes("social involvement") || doc.tweet.full_text.includes("socialinvolvement")) {
-      emit("social connectedness Melbourne", {text:doc.tweet.full_text});
+      emit("social connectedness Brisbane", {text:doc.tweet.full_text});
   }
 }
 '''
